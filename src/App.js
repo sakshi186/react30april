@@ -1,23 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { useEffect, useState } from 'react';
+import swal from 'sweetalert';
+//rfc
 function App() {
+  //1.states/variables
+  const [studentName, setStudentName] = useState('sakshi')
+
+  //useEffect(<function>,<dependency>)
+  useEffect(()=>{
+
+  },[])
+  
+  //2.function
+let myFunction =()=>{
+  console.log(studentName);
+  //api calling
+  var data={
+    "data":{
+      "name":studentName
+    }
+  }
+   //promise chain
+   fetch('http://localhost:1337/api/students',{
+     method:'POST',
+     headers: {
+      'Content-Type': 'application/json',
+      'accept': 'application/json'
+     },
+     body:JSON.stringify(data)
+   }).then((d)=>{
+     console.log(d.status);
+     if(d.status == 200){
+      swal("Good job!", "data created successfully", "success");
+     }
+   }).catch((e)=>{}).finally((all)=>{});
+}
+  //3.return statements
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { studentName }
+      <form>
+      <label>Enter Student Name:<br/>
+        <input type="text" value={ studentName } onChange={ (e)=>{setStudentName(e.target.value)}}/>
+      </label><br/>
+      <input type="button" onClick={ myFunction } name="studentName" value="Save Student" />
+    </form>
     </div>
   );
 }
