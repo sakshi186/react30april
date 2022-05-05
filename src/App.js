@@ -34,7 +34,7 @@ let myFunction =()=>{
      body:JSON.stringify(data)
    }).then((d)=>{
      console.log(d.status);
-     if(d.status == 200){
+     if(d.status === 200){
       swal("Good job!", "data created successfully", "success");
      }
    }).catch((e)=>{}).finally((all)=>{});
